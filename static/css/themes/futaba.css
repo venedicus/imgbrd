@@ -1,0 +1,142 @@
+/* Светлая тёплая палитра */
+:root {
+    --ui-radius: 8px;
+    --ui-radius-sm: 4px;
+    --chrome-radius: 14px;
+    --focus-ring-color: #0d47a1;
+    --chrome-details-rule: rgba(92, 64, 48, 0.35);
+    --chrome-muted-fg: #5c2a2a;
+    --chrome-muted-opacity: 0.92;
+}
+
+body {
+    background: #f0e0d6;
+    color: #800000;
+}
+
+a {
+    color: #0000cc;
+}
+
+a:visited {
+    color: #551a8b;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    background: #fff;
+    color: #800000;
+    border: 2px solid #0d47a1;
+}
+
+.chrome-dock-surface {
+    background: #ea8;
+    color: #800000;
+    border: 1px solid #d9bfb7;
+    box-shadow: 0 6px 22px rgba(80, 40, 40, 0.18);
+}
+
+.chrome-home,
+.chrome-board,
+.chrome-theme-link,
+.chrome-advanced-link {
+    color: #600000;
+}
+
+.chrome-tools a {
+    color: #0000cc;
+}
+
+.ui-btn {
+    background: #f0e0d6;
+    border-color: #bca08f #5c4030 #5c4030 #bca08f;
+    color: #600000;
+}
+
+.ui-btn.chrome-snap-btn.is-active {
+    background: #d4a574;
+}
+
+.post-form .ui-btn[type="submit"],
+.ui-btn.search-advanced-submit {
+    background: #ea8;
+    border-color: #d9bfb7;
+    color: #600000;
+}
+
+.container {
+    background: transparent;
+}
+
+.stats-global {
+    background: #efe2d9;
+    border-color: #d9bfb7;
+}
+
+.board-table {
+    border-color: #d9bfb7;
+    background: #f0e0d6;
+}
+
+.board-table th,
+.board-table td {
+    border-bottom-color: #d9bfb7;
+    background: #f0e0d6;
+}
+
+.board-table thead th {
+    background: #ea8;
+}
+
+.post {
+    background: #f0e0d6;
+    border-color: #d9bfb7;
+}
+
+hr {
+    border-top-color: #d9bfb7;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="password"],
+textarea,
+select,
+.ui-input {
+    background: #fff;
+    color: #000;
+    border-color: #bca08f;
+}
+
+.md-btn {
+    background: #f0e0d6;
+    border-color: #d9bfb7;
+    color: #600000;
+}
+
+.captcha-img {
+    border-color: #d9bfb7;
+}
+
+.captcha-reload {
+    background: #ea8;
+    border-color: #d9bfb7;
+    color: #600000;
+}
+
+.search-hits li {
+    border-bottom-color: rgba(128, 0, 0, 0.12);
+}
+
+.post-body pre {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.post-body blockquote {
+    border-left-color: #caa;
+}
+
+.dock-motion-hint {
+    font-size: 11px;
+    opacity: 0.9;
+}

@@ -1,0 +1,82 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{.SiteTitle}}</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/themes/{{.Theme}}.css">
+    {{if eq .Theme "win95"}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    {{end}}
+</head>
+<body class="chrome-edge-top">
+
+<a class="skip-link" href="#main-content">Перейти к содержимому</a>
+
+<nav id="chrome-dock" class="chrome-dock{{if eq .Theme "win95"}} chrome-dock--win95{{end}}" data-edge="top" data-site-title="{{.SiteTitle}}" aria-label="Навигация, поиск и инструменты">
+    <div class="chrome-dock-surface">
+        <div class="chrome-block chrome-boards" aria-label="Доски">
+            <a href="/" class="chrome-home{{if eq .CurrentBoardSlug ""}} is-current{{end}}">[{{.SiteTitle}}]</a>
+            <div class="chrome-board-scroll">
+                <span class="chrome-board-links">
+                    {{range .NavBoards}}
+                    <a href="/board/{{.Slug}}" class="chrome-board{{if eq $.CurrentBoardSlug .Slug}} is-current{{end}}" title="{{.Title}}">/{{.Slug}}/</a>
+                    {{end}}
+                </span>
+            </div>
+        </div>
+
+        <div class="chrome-block chrome-search" role="search">
+            <form class="global-search-form" action="/search" method="get">
+                <label class="visually-hidden" for="global-search-q">Поиск по тексту постов и заголовкам тредов</label>
+                <input id="global-search-q" type="search" name="q" value="{{.SearchQuery}}" placeholder="Поиск" autocomplete="off" class="ui-input global-search-input">
+                <button type="submit" class="ui-btn global-search-submit">Найти</button>
+            </form>
+            <a href="/search?advanced=1" class="chrome-advanced-link">Расширенный поиск</a>
+        </div>
+
+        <div class="chrome-block chrome-tools" id="chrome-tools-block">
+            <div id="chrome-page-tools" class="chrome-page-tools-inner"></div>
+        </div>
+
+        <details class="chrome-secondary-details" id="chrome-secondary-details">
+            <summary class="chrome-secondary-summary ui-btn">Тема и положение панели</summary>
+            <div class="chrome-secondary-panel">
+                <div class="chrome-themes" role="group" aria-label="Цветовая тема">
+                    <span class="chrome-muted" id="chrome-theme-label">Тема</span>
+                    <span class="chrome-theme-links" aria-labelledby="chrome-theme-label">
+                        <a href="/set-theme?theme=futaba" class="chrome-theme-link" {{if eq .Theme "futaba"}}aria-current="true"{{end}}>futaba</a>
+                        <span class="chrome-dot" aria-hidden="true">·</span>
+                        <a href="/set-theme?theme=tomorrow" class="chrome-theme-link" {{if eq .Theme "tomorrow"}}aria-current="true"{{end}}>tomorrow</a>
+                        <span class="chrome-dot" aria-hidden="true">·</span>
+                        <a href="/set-theme?theme=neutral" class="chrome-theme-link" {{if eq .Theme "neutral"}}aria-current="true"{{end}}>neutral</a>
+                        <span class="chrome-dot" aria-hidden="true">·</span>
+                        <a href="/set-theme?theme=win95" class="chrome-theme-link" {{if eq .Theme "win95"}}aria-current="true"{{end}}>win95</a>
+                    </span>
+                </div>
+                <div class="chrome-snap" role="group" aria-labelledby="chrome-snap-legend">
+                    <span id="chrome-snap-legend" class="chrome-snap-label">Панель (в браузере)</span>
+                    <div class="chrome-snap-btns">
+                        <button type="button" class="ui-btn ui-btn--icon ui-btn--touch chrome-snap-btn" data-chrome-edge="top" title="Сверху" aria-label="Закрепить панель сверху">▲</button>
+                        <button type="button" class="ui-btn ui-btn--icon ui-btn--touch chrome-snap-btn" data-chrome-edge="bottom" title="Снизу" aria-label="Закрепить панель снизу">▼</button>
+                        <button type="button" class="ui-btn ui-btn--icon ui-btn--touch chrome-snap-btn" data-chrome-edge="left" title="Слева" aria-label="Закрепить панель слева">◀</button>
+                        <button type="button" class="ui-btn ui-btn--icon ui-btn--touch chrome-snap-btn" data-chrome-edge="right" title="Справа" aria-label="Закрепить панель справа">▶</button>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+</nav>
+
+<main id="main-content" class="container" tabindex="-1">
+    {{template "content" .}}
+</main>
+
+<script src="/static/js/board.js" defer></script>
+</body>
+</html>
+{{end}}

@@ -1,0 +1,44 @@
+{{define "content"}}
+
+<h1 class="catalog-title">Доски</h1>
+
+<section class="stats-global" aria-label="Сводка">
+    <ul class="stats-list">
+        <li>Досок: <strong>{{.Global.TotalBoards}}</strong></li>
+        <li>Тредов: <strong>{{.Global.TotalThreads}}</strong></li>
+        <li>Постов: <strong>{{.Global.TotalPosts}}</strong></li>
+        <li>За час: <strong>{{.Global.PostsLastHour}}</strong></li>
+    </ul>
+</section>
+
+<table class="board-table" aria-label="Доски">
+    <thead>
+    <tr>
+        <th>Доска</th>
+        <th class="num">Тредов</th>
+        <th class="num">Постов</th>
+        <th class="num">/час</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{range .Boards}}
+    <tr>
+        <td>
+            <a href="/board/{{.Slug}}" class="board-link">/{{.Slug}}/</a>
+            <span class="board-title">{{.Title}}</span>
+        </td>
+        <td class="num">{{.ThreadCount}}</td>
+        <td class="num">{{.PostCount}}</td>
+        <td class="num">{{.PostsLastHour}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="4">Нет досок.</td>
+    </tr>
+    {{end}}
+    </tbody>
+</table>
+
+{{end}}
+
+{{template "base" .}}

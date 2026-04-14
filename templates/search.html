@@ -1,0 +1,62 @@
+{{define "content"}}
+<h1 class="search-page-title">Поиск</h1>
+
+{{if .Advanced}}
+<form action="/search" method="GET" class="search-advanced-form">
+    <input type="hidden" name="advanced" value="1">
+    <div class="search-advanced-grid">
+        <label class="search-field">
+            <span>Текст</span>
+            <input type="search" name="q" value="{{.Query}}" placeholder="слова в посте или заголовке треда">
+        </label>
+        <label class="search-field">
+            <span>Доска</span>
+            <select name="board">
+                <option value="">все доски</option>
+                {{range .NavBoards}}
+                <option value="{{.Slug}}" {{if eq $.BoardSlug .Slug}}selected{{end}}>/{{.Slug}}/ — {{.Title}}</option>
+                {{end}}
+            </select>
+        </label>
+        <label class="search-field">
+            <span>Где искать</span>
+            <select name="scope">
+                <option value="posts" {{if eq .Scope "posts"}}selected{{end}}>текст постов</option>
+                <option value="threads" {{if eq .Scope "threads"}}selected{{end}}>заголовки тредов</option>
+            </select>
+        </label>
+        <label class="search-field">
+            <span>Сортировка</span>
+            <select name="sort">
+                <option value="new" {{if eq .Sort "new"}}selected{{end}}>сначала новые</option>
+                <option value="old" {{if eq .Sort "old"}}selected{{end}}>сначала старые</option>
+                <option value="bump" {{if eq .Sort "bump"}}selected{{end}}>по бампу треда</option>
+            </select>
+        </label>
+    </div>
+    <button type="submit" class="ui-btn search-advanced-submit">Искать</button>
+</form>
+{{else}}
+{{if not .Query}}
+<p class="search-hint">Используйте строку поиска выше или <a href="/search?advanced=1">откройте расширенный поиск</a> (доска, область, сортировка).</p>
+{{end}}
+{{end}}
+
+{{if .Query}}
+<ul class="search-hits">
+    {{range .Hits}}
+    <li>
+        {{if eq .Kind "thread"}}
+        <a href="/thread/view?id={{.ThreadID}}">/{{.BoardSlug}}/ — тред: {{.Snippet}}</a>
+        {{else}}
+        <a href="/thread/view?id={{.ThreadID}}#p{{.BoardPostNo}}">/{{.BoardSlug}}/ №{{.BoardPostNo}}</a>
+        <div class="search-snippet">{{.Snippet}}</div>
+        {{end}}
+    </li>
+    {{else}}
+    <li>Ничего не найдено.</li>
+    {{end}}
+</ul>
+{{end}}
+{{end}}
+{{template "base" .}}

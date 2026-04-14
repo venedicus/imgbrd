@@ -1,0 +1,96 @@
+{{define "content"}}
+
+<div class="thread-page" data-thread-id="{{.Thread.ID}}" data-board-slug="{{.BoardSlug}}">
+
+<p class="meta">
+    <a href="/">↑</a>
+    <a href="/board/{{.BoardSlug}}">/{{.BoardSlug}}/</a>
+</p>
+
+<h2 class="thread-title"><span class="thread-no">№{{.Thread.BoardThreadNo}}</span> {{.Thread.Title}}</h2>
+<p class="meta">{{.Thread.CreatedAt}}{{if .Thread.Pinned}} · закреплён{{end}}</p>
+
+<hr>
+
+{{range .Posts}}
+
+<div class="post" id="p{{.BoardPostNo}}" data-post-no="{{.BoardPostNo}}">
+
+    <div class="meta post-head">
+        <a href="#p{{.BoardPostNo}}" class="post-num">№{{.BoardPostNo}}</a>
+        {{if .PosterLine}}
+        <span class="poster">{{.PosterLine}}</span>
+        {{end}}
+        · {{.CreatedAt}}{{if .Sage}} · sage{{end}}
+    </div>
+
+    {{if .BodyHTML}}
+    <div class="post-body">{{.BodyHTML}}</div>
+    {{end}}
+
+    {{if .Image}}
+    <div class="media-wrap">
+        {{if .IsVideo}}
+        <video src="{{.Image}}" controls class="image video-embed" preload="metadata"></video>
+        {{else if and .ThumbURL (ne .ThumbURL .Image)}}
+        <a href="{{.Image}}" class="img-link" target="_blank" rel="noopener">
+            <img src="{{.ThumbURL}}" alt="" class="image img-expand thumb" loading="lazy">
+        </a>
+        {{else}}
+        <img src="{{.Image}}" alt="" class="image img-expand" loading="lazy">
+        {{end}}
+    </div>
+    {{end}}
+
+</div>
+
+{{else}}
+
+<p>Нет постов.</p>
+
+{{end}}
+
+<hr>
+
+<h3 class="form-title">Ответ</h3>
+
+<form action="/post/create" method="POST" enctype="multipart/form-data" class="post-form" data-form="reply">
+
+    <input type="hidden" name="thread_id" value="{{.Thread.ID}}">
+    <input type="hidden" name="captcha_id" value="{{.CaptchaID}}">
+
+    <label>Имя</label>
+    <input type="text" name="name" placeholder="анон" autocomplete="off">
+
+    <label>Трипкод</label>
+    <input type="password" name="trip" autocomplete="new-password">
+
+    <label>Текст <span class="hint">(Markdown)</span></label>
+    <div class="md-bar" role="toolbar" aria-label="Разметка">
+        <button type="button" class="md-btn" data-wrap="**" title="Жирный">B</button>
+        <button type="button" class="md-btn" data-wrap="*" title="Курсив">I</button>
+        <button type="button" class="md-btn md-code" title="Код">`</button>
+        <button type="button" class="md-btn md-line" data-prefix="&gt; " title="Цитата">&gt;</button>
+        <button type="button" class="md-btn" data-quote title="Цитата поста">»</button>
+    </div>
+    <textarea name="text" rows="6" class="md-input" id="reply-textarea"></textarea>
+
+    <label>Файл</label>
+    <input type="file" name="image">
+
+    <label class="sage-label"><input type="checkbox" name="sage"> sage</label>
+
+    <div class="captcha-block">
+        <img src="/captcha/{{.CaptchaID}}.png" width="240" height="80" alt="" class="captcha-img" data-captcha-src="/captcha/{{.CaptchaID}}.png">
+        <button type="button" class="captcha-reload" title="Другая картинка">↻</button>
+        <input type="text" name="captcha_solution" required autocomplete="off" placeholder="Цифры с картинки" class="captcha-input">
+    </div>
+
+    <button type="submit" class="ui-btn">Отправить</button>
+</form>
+
+</div>
+
+{{end}}
+
+{{template "base" .}}

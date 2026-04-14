@@ -27,6 +27,11 @@ go.work.sum
 # env file
 .env
 
-# Editor/IDE
-# .idea/
-# .vscode/
+# Локальные данные имиджборды (не в пустой шаблон репозитория)
+data.db
+data.db-wal
+data.db-shm
+data.db-journal
+
+# Загруженные в посты изображения
+static/uploads/

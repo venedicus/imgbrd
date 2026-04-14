@@ -1,0 +1,77 @@
+{{define "content"}}
+
+<div class="board-page" data-board-slug="{{.Board.Slug}}">
+
+<p class="meta">
+    <a href="/">↑</a>
+    /{{.Board.Slug}}/
+    · <a href="/rss/board/{{.Board.Slug}}" type="application/rss+xml">RSS</a>
+    · <a href="/api/board/{{.Board.Slug}}">JSON</a>
+</p>
+
+<h2 class="board-head">{{.Board.Title}}{{if .Board.NSFW}} <span class="nsfw-tag">NSFW</span>{{end}}</h2>
+
+<h3 class="form-title">Новый тред</h3>
+
+<form action="/thread/create" method="POST" enctype="multipart/form-data" class="post-form" data-form="thread">
+
+    <input type="hidden" name="board_slug" value="{{.Board.Slug}}">
+    <input type="hidden" name="captcha_id" value="{{.CaptchaID}}">
+
+    <label>Заголовок</label>
+    <input type="text" name="title" required>
+
+    <label>Имя</label>
+    <input type="text" name="name" placeholder="анон" autocomplete="off">
+
+    <label>Трипкод (пароль)</label>
+    <input type="password" name="trip" autocomplete="new-password">
+
+    <label>Текст <span class="hint">(Markdown)</span></label>
+    <div class="md-bar" role="toolbar" aria-label="Разметка">
+        <button type="button" class="md-btn" data-wrap="**" title="Жирный">B</button>
+        <button type="button" class="md-btn" data-wrap="*" title="Курсив">I</button>
+        <button type="button" class="md-btn md-code" title="Код">`</button>
+        <button type="button" class="md-btn md-line" data-prefix="&gt; " title="Цитата">&gt;</button>
+    </div>
+    <textarea name="text" rows="6" class="md-input"></textarea>
+
+    <label>Файл <span class="hint">(изображение, WebM, MP4)</span></label>
+    <input type="file" name="image">
+
+    <label class="sage-label"><input type="checkbox" name="sage"> sage (без бампа — для ответов)</label>
+
+    <div class="captcha-block">
+        <img src="/captcha/{{.CaptchaID}}.png" width="240" height="80" alt="" class="captcha-img" data-captcha-src="/captcha/{{.CaptchaID}}.png">
+        <button type="button" class="captcha-reload" title="Другая картинка">↻</button>
+        <input type="text" name="captcha_solution" required autocomplete="off" placeholder="Цифры с картинки" class="captcha-input">
+    </div>
+
+    <button type="submit" class="ui-btn">Создать</button>
+</form>
+
+<hr>
+
+<h3>Треды</h3>
+
+{{range .Threads}}
+
+<div class="thread">
+    <a href="/thread/view?id={{.ID}}">
+        <span class="thread-no">№{{.BoardThreadNo}}</span>
+        {{.Title}}
+    </a>
+    <div class="meta">{{.BumpedAt}} · создан {{.CreatedAt}}</div>
+</div>
+
+{{else}}
+
+<p>Нет тредов.</p>
+
+{{end}}
+
+</div>
+
+{{end}}
+
+{{template "base" .}}

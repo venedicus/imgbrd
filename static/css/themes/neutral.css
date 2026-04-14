@@ -1,0 +1,150 @@
+/* Calm light gray */
+:root {
+    --ui-radius: 10px;
+    --ui-radius-sm: 6px;
+    --chrome-radius: 16px;
+    --focus-ring-color: #1a56a8;
+    --chrome-details-rule: rgba(47, 59, 82, 0.18);
+    --chrome-muted-fg: #334155;
+    --chrome-muted-opacity: 0.88;
+}
+
+body {
+    background: #eef2f7;
+    color: #222;
+}
+
+a {
+    color: #154a9e;
+}
+
+a:visited {
+    color: #5c3b8a;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    background: #fff;
+    color: #111;
+    border: 2px solid #1a56a8;
+}
+
+.chrome-dock-surface {
+    background: #fff;
+    color: #222;
+    border: 1px solid #c5cdd9;
+    box-shadow: 0 8px 30px rgba(47, 59, 82, 0.12);
+}
+
+.chrome-home,
+.chrome-board {
+    color: #154a9e;
+}
+
+.chrome-theme-link,
+.chrome-advanced-link {
+    color: #154a9e;
+}
+
+.chrome-tools a {
+    color: #154a9e;
+}
+
+.ui-btn {
+    background: #f1f5f9;
+    border-color: #e2e8f0 #94a3b8 #94a3b8 #e2e8f0;
+    color: #1e293b;
+}
+
+.ui-btn.chrome-snap-btn.is-active {
+    background: #dbeafe;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+}
+
+.post-form .ui-btn[type="submit"],
+.ui-btn.search-advanced-submit {
+    background: #2f3b52;
+    border-color: #3d4d6b #1a2332 #1a2332 #3d4d6b;
+    color: #fff;
+}
+
+.container {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.stats-global {
+    border-color: #d0d7e2;
+    background: #f8fafc;
+}
+
+.board-table {
+    border-color: #e2e8f0;
+    background: #fff;
+}
+
+.board-table th,
+.board-table td {
+    border-bottom-color: #e2e8f0;
+    background: #fff;
+}
+
+.board-table thead th {
+    background: #f1f5f9;
+}
+
+.post {
+    background: #fafafa;
+    border-color: #e2e8f0;
+}
+
+hr {
+    border-top-color: #e2e8f0;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="password"],
+textarea,
+select,
+.ui-input {
+    background: #fff;
+    color: #222;
+    border-color: #cbd5e1;
+}
+
+.md-btn {
+    background: #fff;
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+.captcha-img {
+    border-color: #cbd5e1;
+}
+
+.captcha-reload {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+.search-hits li {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.post-body pre {
+    background: #f1f5f9;
+}
+
+.post-body blockquote {
+    border-left-color: #94a3b8;
+}
+
+.dock-motion-hint {
+    font-size: 11px;
+    color: #475569;
+}

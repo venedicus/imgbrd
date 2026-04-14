@@ -1,0 +1,143 @@
+/* Dark */
+:root {
+    --ui-radius: 8px;
+    --ui-radius-sm: 4px;
+    --chrome-radius: 14px;
+    --color-text-muted: rgba(197, 200, 198, 0.7);
+    --focus-ring-color: #7aa6d8;
+    --chrome-details-rule: rgba(197, 200, 198, 0.22);
+    --chrome-muted-fg: #b5bab8;
+    --chrome-muted-opacity: 0.95;
+}
+
+body {
+    background: #1d1f21;
+    color: #c5c8c6;
+}
+
+a {
+    color: #8abeb7;
+}
+
+a:visited {
+    color: #c594c5;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    background: #282a2e;
+    color: #c5c8c6;
+    border: 2px solid #7aa6d8;
+}
+
+.chrome-dock-surface {
+    background: #282a2e;
+    color: #c5c8c6;
+    border: 1px solid #373b41;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+.chrome-home,
+.chrome-board,
+.chrome-theme-link,
+.chrome-advanced-link {
+    color: #9fd4cc;
+}
+
+.chrome-tools a {
+    color: #8abeb7;
+}
+
+.ui-btn {
+    background: #373b41;
+    border-color: #454a4f #1d1f21 #1d1f21 #454a4f;
+    color: #c5c8c6;
+}
+
+.ui-btn.chrome-snap-btn.is-active {
+    background: #5c6370;
+}
+
+.post-form .ui-btn[type="submit"],
+.ui-btn.search-advanced-submit {
+    background: #5c6370;
+    border-color: #707880 #282a2e #282a2e #707880;
+    color: #eceef0;
+}
+
+.container {
+    background: transparent;
+}
+
+.stats-global {
+    border-color: #373b41;
+    background: #282a2e;
+}
+
+.board-table {
+    border-color: #373b41;
+    background: #1d1f21;
+}
+
+.board-table th,
+.board-table td {
+    border-bottom-color: #373b41;
+    background: #1d1f21;
+}
+
+.board-table thead th {
+    background: #282a2e;
+}
+
+.post {
+    background: #252628;
+    border-color: #373b41;
+}
+
+hr {
+    border-top-color: #373b41;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="password"],
+textarea,
+select,
+.ui-input {
+    background: #1d1f21;
+    color: #c5c8c6;
+    border-color: #454a4f;
+}
+
+.md-btn {
+    background: #282a2e;
+    border-color: #373b41;
+    color: #c5c8c6;
+}
+
+.captcha-img {
+    border-color: #373b41;
+}
+
+.captcha-reload {
+    background: #373b41;
+    border-color: #454a4f;
+    color: #c5c8c6;
+}
+
+.search-hits li {
+    border-bottom-color: rgba(197, 200, 198, 0.12);
+}
+
+.post-body pre {
+    background: #1d1f21;
+}
+
+.post-body blockquote {
+    border-left-color: #5c6370;
+}
+
+.dock-motion-hint {
+    font-size: 11px;
+    color: #a3a8a5;
+}
