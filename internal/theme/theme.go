@@ -12,7 +12,6 @@ var Valid = map[string]struct{}{
 	"futaba":   {},
 	"tomorrow": {},
 	"neutral":  {},
-	"win95":    {},
 }
 
 func IsValid(id string) bool {
