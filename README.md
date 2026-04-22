@@ -15,9 +15,6 @@
 - **Вебхук:** `POST` JSON при новом треде/посте (`IMGBRD_WEBHOOK_URL`, заголовок `X-Webhook-Secret`).
 - **pprof:** отдельный listener на `IMGBRD_PPROF_ADDR` (или `127.0.0.1:6060` при `IMGBRD_ENABLE_PPROF=1`).
 
-### Будущие возможности
-- **Кэширование медиа для переиспользования:**
-
 ## Запуск
 
 ```bash
