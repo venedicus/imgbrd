@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS threads (
 );
 
 CREATE INDEX IF NOT EXISTS idx_threads_board_id ON threads(board_id);
--- idx_threads_bumped создаётся в UpgradeSchema после добавления колонок на старых БД
 
 CREATE TABLE IF NOT EXISTS posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,7 +41,6 @@ CREATE TABLE IF NOT EXISTS posts (
 
 CREATE INDEX IF NOT EXISTS idx_posts_thread_id ON posts(thread_id);
 CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts(created_at);
--- idx_posts_file_hash — в UpgradeSchema (колонка file_hash могла отсутствовать в старых схемах)
 
 CREATE TABLE IF NOT EXISTS passcodes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -89,5 +87,5 @@ CREATE TABLE IF NOT EXISTS post_edits (
 );
 
 INSERT INTO boards (slug, title)
-SELECT 'test', '/test/ — тестовая доска'
-WHERE NOT EXISTS (SELECT 1 FROM boards WHERE slug = 'test');
+SELECT 'b', '/b/ — Бред'
+WHERE NOT EXISTS (SELECT 1 FROM boards WHERE slug = 'b');
