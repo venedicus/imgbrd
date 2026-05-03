@@ -3,9 +3,7 @@
 [![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?style=flat-square&logo=go)](https://go.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**imgbrd** — это современный легковесный движок имиджборды, написанный на Go. Архитектура построена на четком разделении слоев (**Handler → Service → Repository**), что обеспечивает простоту поддержки и тестирования. В качестве хранилища используется **SQLite** с активным использованием возможностей FTS5 для полнотекстового поиска.
-
-[Исходный код на GitHub](https://github.com/venedicus/imgbrd)
+[**imgbrd**]((https://github.com/venedicus/imgbrd)) — это современный легковесный движок имиджборды, написанный на Go. Архитектура построена на четком разделении слоев (**Handler → Service → Repository**), что обеспечивает простоту поддержки и тестирования. В качестве хранилища используется **SQLite** с активным использованием возможностей FTS5 для полнотекстового поиска.
 
 ---
 
