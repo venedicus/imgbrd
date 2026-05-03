@@ -1,68 +1,56 @@
 # imgbrd
 
-Имиджборда на Go (handler → service → repository → SQLite). Репозиторий: [github.com/venedicus/imgbrd](https://github.com/venedicus/imgbrd).
+[![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?style=flat-square&logo=go)](https://go.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-## Возможности
+**imgbrd** — это современный легковесный движок имиджборды, написанный на Go. Архитектура построена на четком разделении слоев (**Handler → Service → Repository**), что обеспечивает простоту поддержки и тестирования. В качестве хранилища используется **SQLite** с активным использованием возможностей FTS5 для полнотекстового поиска.
 
-- **Каталог:** сортировка тредов по бампу (`bumped_at`), закреп (`pinned`), лимит активных тредов на доску (`max_threads` → старые уходят в `archived`).
-- **Посты:** sage (ответ без бампа), имя + трипкод, Markdown, ссылки `>>N` → якорь `#pN`, скрытие постов (модерация).
-- **Файлы:** лимит размера (`IMGBRD_MAX_UPLOAD_MB`), проверка по magic bytes, **WebM/MP4**, превью JPEG для картинок, **дедуп по SHA-256** (повторный тот же файл не копируется).
-- **Поиск:** FTS5 по тексту постов (с fallback на `LIKE`), страница `/search`.
-- **Ленты и API:** `GET /rss/board/{slug}`, `GET /api/board/{slug}`, `GET /api/thread?id=`.
-- **Экспорт треда:** `GET /thread/export?id=` — ZIP (`manifest.json`, `thread.html`, вложенные файлы).
-- **Публичный журнал:** `/modlog` (HTML), дублируется в админке как JSON.
-- **Баны по IP** (опционально привязка к доске), проверка при постинге.
-- **Вебхук:** `POST` JSON при новом треде/посте (`IMGBRD_WEBHOOK_URL`, заголовок `X-Webhook-Secret`).
-- **pprof:** отдельный listener на `IMGBRD_PPROF_ADDR` (или `127.0.0.1:6060` при `IMGBRD_ENABLE_PPROF=1`).
+[Исходный код на GitHub](https://github.com/venedicus/imgbrd)
 
-## Ближайшие обновления
-- **Локализация и функции мультиязычности.**
-- **Комментарии:** привидение комментариев в коде к единому виду.
-- **Документация:** создание полноценной документации.
+---
 
+## 🚀 Основные возможности
 
-## Запуск
+### Ядро и контент
+* **Управление тредами:** Сортировка по бампу (`bumped_at`), закрепление постов (`pinned`), автоматическая архивация старых тредов при достижении лимита (`max_threads`).
+* **Система постов:** Поддержка Sage, трипкодов, разметки Markdown и внутренних ссылок (`>>N`) с якорной навигацией.
+* **Полнотекстовый поиск:** Использование движка **SQLite FTS5** для мгновенного поиска по базе постов.
 
+### Работа с медиа
+* **Валидация:** Проверка файлов по Magic Bytes и ограничение размера через переменные окружения.
+* **Оптимизация:** Автоматическая генерация JPEG-превью для изображений.
+* **Дедупликация:** Контроль уникальности файлов по хэшу **SHA-256** (экономия места на диске).
+* **Форматы:** Полная поддержка видео-контента (WebM, MP4).
+
+### Администрирование и API
+* **Гибкий бан-лист:** Блокировка по IP (глобально или для конкретной доски).
+* **Модерация:** Скрытие/редактирование постов через защищенное Admin API.
+* **Экспорт:** Возможность выгрузки треда в ZIP-архив (JSON-манифест + HTML-копия + медиа).
+* **Интеграции:** Вебхуки для уведомлений о новых событиях и поддержка RSS-лент.
+* **Мониторинг:** Встроенный профилировщик `pprof` для отладки производительности.
+
+---
+
+## 🛠 Технологический стек
+
+* **Language:** Go (Golang)
+* **Database:** SQLite 3 (FTS5, Triggers, Upgrades)
+* **Architecture:** Clean Architecture (Service-Repository pattern)
+* **Frontend:** Server-side templates (html/template)
+
+---
+
+## 📦 Быстрый старт
+
+### Требования
+* Установленный Go 1.21 или выше.
+* Наличие директорий `templates/` и `static/` в рабочей директории.
+
+### Запуск
 ```bash
+# Клонирование репозитория
+git clone [https://github.com/venedicus/imgbrd.git](https://github.com/venedicus/imgbrd.git)
+cd imgbrd
+
+# Запуск приложения
 go run ./cmd/app
-```
-
-Нужны каталоги `templates/`, `static/` в рабочей директории. После обновления схемы при ошибках FTS удалите `data.db` и дайте приложению создать БД заново.
-
-## Переменные окружения
-
-| Переменная | По умолчанию | Назначение |
-|------------|--------------|------------|
-| `IMGBRD_SITE_TITLE` | `imgbrd` | Заголовок сайта |
-| `IMGBRD_PUBLIC_ADDR` | `:8080` | Публичный HTTP |
-| `IMGBRD_DEFAULT_THEME` | `futaba` | Тема без cookie |
-| `IMGBRD_MAX_UPLOAD_MB` | `25` | Максимум размера файла |
-| `IMGBRD_WEBHOOK_URL` | *(пусто)* | URL для событий постов/тредов |
-| `IMGBRD_WEBHOOK_SECRET` | *(пусто)* | Секрет вебхука |
-| `IMGBRD_ENABLE_PPROF` | off | `1` / `true` — включить pprof |
-| `IMGBRD_PPROF_ADDR` | *(пусто)* | Адрес pprof; при пустом и включённом флаге — `127.0.0.1:6060` |
-| `IMGBRD_ADMIN_ADDR` | *(пусто)* | Админ API |
-| `IMGBRD_ADMIN_TOKEN` | *(пусто)* | Токен админ API |
-
-## Админ API (отдельный порт)
-
-Заголовок: `Authorization: Bearer <token>` или `X-Admin-Token`.
-
-- `GET /health`, `GET /stats`, `GET /boards`, `POST /boards`
-- `POST /board-config` — `{"slug":"b","max_threads":200,"nsfw":true}`
-- `POST /ban` — `{"ip":"1.2.3.4","board_id":null,"reason":"spam","expires_hours":24}`
-- `GET /bans`
-- `POST /posts/hide`, `POST /posts/unhide` — `{"post_id":1}`
-- `POST /posts/edit` — `{"post_id":1,"text":"..."}` (история в `post_edits`)
-- `POST /threads/pin` — `{"thread_id":1,"pinned":true}`
-- `GET /modlog` — JSON журнала
-
-## Структура
-
-- `cmd/app` — точка входа
-- `internal/db` — SQL init + программный upgrade (колонки, FTS, триггеры)
-- `templates/`, `static/`
-
-## Лицензия
-
-MIT
